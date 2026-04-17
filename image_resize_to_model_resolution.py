@@ -23,6 +23,19 @@ QWEN_IMAGE_RESOLUTIONS = (
     (1472, 1140),  # 4:3
 )
 
+ERNIE_IMAGE_RESOLUTIONS = (
+    #Square
+    (1024,  1024), #1:1
+    # Vertical
+    (848,  1264), #~1.5
+    (768,  1376), #~5:9
+    (896,  1200), #3:4
+    #Horizontal
+    (1264,  848), #~5.1
+    (1376,  768), #~9:5
+    (1200,  896), #4:3
+)
+
 Z_IMAGE_RESOLUTIONS = (
     # Vertical
     (720,  1280),  # 9:16
@@ -207,11 +220,11 @@ LTXV_RESOLUTIONS = (
 
 class ImageRes2ModelRes:
     CATEGORY = "riversidenodes"
-    #ICON = "ruler_icon.svg"  # place the file next to your node's .py
     
     MODEL_RESOLUTIONS: dict[str, tuple[tuple[int, int], ...]] = {
         "Qwen_Image":    QWEN_IMAGE_RESOLUTIONS,
         "Z_Image_Turbo": Z_IMAGE_RESOLUTIONS,
+        "Ernie_Image_Turbo": ERNIE_IMAGE_RESOLUTIONS,
         "SDXL":          SDXL_RESOLUTIONS,
         "Flux":          FLUX_RESOLUTIONS,
         "Flux2":         FLUX2_RESOLUTIONS,
@@ -223,7 +236,7 @@ class ImageRes2ModelRes:
         "required": {
             "image": ("IMAGE",),
             "model": (
-                ["Qwen Image", "Z Image Turbo", "SDXL", "Flux", "Flux2", "Wan 2.2", "LTXV"],
+                ["Qwen Image", "Z Image Turbo", "Ernie Image Turbo", "SDXL", "Flux", "Flux2", "Wan2.2", "LTXV"],
             ),
             "interpolation_mode": (
                 ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
