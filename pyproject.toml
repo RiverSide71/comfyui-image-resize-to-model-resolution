@@ -1,7 +1,7 @@
 [project]
 name = "image-resize-to-model-resolution"
 description = "A custom node to resize your image to model-specific resolution"
-version = "1.0.0"
+version = "1.0.1"
 license = { file = "LICENSE" } 
 # classifiers = [
 #     # For OS-independent nodes (works on all operating systems)
@@ -19,7 +19,6 @@ license = { file = "LICENSE" }
 #     "Environment :: NPU :: Huawei Ascend",  # Huawei Ascend support
 #     "Environment :: GPU :: Apple Metal",    # Apple Metal support
 # ]
-
 
 [project.urls]
 Repository = "https://github.com/RiverSide71/comfyui-image-resize-to-model-resolution"
