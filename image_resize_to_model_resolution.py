@@ -236,7 +236,7 @@ class ImageRes2ModelRes:
         "required": {
             "image": ("IMAGE",),
             "model": (
-                ["Qwen Image", "Z Image Turbo", "Ernie Image Turbo", "SDXL", "Flux", "Flux2", "Wan2.2", "LTXV"],
+                ["Qwen_Image", "Z_Image_Turbo", "Ernie_Image_Turbo", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV"],
             ),
             "interpolation_mode": (
                 ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
@@ -283,30 +283,34 @@ class ImageRes2ModelRes:
         """
         Return the (w, h) entry from *resolutions* that best matches the image.
 
-        When target_longest_side == 0 (default):
-            Picks purely by aspect-ratio proximity.
+        Always scores by a weighted combination of:
+          - aspect-ratio proximity  (primary — avoids orientation flips)
+          - pixel-area proximity    (secondary — avoids huge over/under sizing)
 
-        When target_longest_side > 0:
-            Scores each candidate by a weighted combination of aspect-ratio
-            difference and longest-side difference, so the returned resolution
-            is still an exact entry from the model's list.
+        When target_longest_side > 0 the area term is replaced by a
+        longest-side proximity term so the result steers toward the requested
+        size instead of the image's native size.
         """
         img_angle = cls._aspect_angle(img_w, img_h)
+        img_area  = img_w * img_h
+
+        # Normalisation constants
+        max_angle  = math.pi / 2
+        max_area   = max(r[0] * r[1] for r in resolutions)
+        max_pixels = max(max(r)      for r in resolutions)
 
         if target_longest_side <= 0:
-            return min(
-                resolutions,
-                key=lambda res: abs(cls._aspect_angle(res[0], res[1]) - img_angle),
-            )
-
-        # Normalise both terms to [0, 1] range for balanced scoring.
-        max_angle = math.pi / 2          # maximum possible atan2 difference
-        max_pixels = max(max(r) for r in resolutions)
-
-        def score(res: tuple[int, int]) -> float:
-            angle_err  = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
-            size_err   = abs(max(res) - target_longest_side) / max_pixels
-            return angle_err + size_err
+            def score(res: tuple[int, int]) -> float:
+                angle_err = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
+                area_err  = abs(res[0] * res[1] - img_area) / max_area
+                # Aspect ratio weighted 2× so orientation is never flipped,
+                # but area proximity breaks ties between same-ratio candidates.
+                return 2.0 * angle_err + area_err
+        else:
+            def score(res: tuple[int, int]) -> float:
+                angle_err = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
+                size_err  = abs(max(res) - target_longest_side) / max_pixels
+                return 2.0 * angle_err + size_err
 
         return min(resolutions, key=score)
 
