@@ -1,5 +1,5 @@
 # comfyui-image-resize-to-model-resolution
-This repo contains a custom node which resizes an imput image to a resolution on which the selected model is trained. 
+A custom node which resizes an imput image to a resolution on which the selected model was trained. 
 
 # Image Resize to Nearest Model Resolution
 
@@ -17,7 +17,12 @@ The Image Resize to Nearest Model Resolution custom node takes as input a single
 
 ## Installation
 
+### ComfyUI Manager
+
+Open Manager and search for comfyui-image-resize-to-model-resolution by publisher river-side
+
 ### Manual
+
 1. Clone this repo into your `ComfyUI/custom_nodes/` folder:
 ```bash
 git clone https://github.com/RiverSide71/comfyui-image-resize-to-model-resolution
