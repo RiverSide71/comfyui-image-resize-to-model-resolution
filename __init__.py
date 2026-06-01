@@ -10,5 +10,5 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "Image Resize to Nearest Model Resolution": "📏Image Resize to Nearest Model Resolution",
+    "Image Resize to Nearest Model Resolution": "📏 Image Resize to Nearest Model Resolution",
 }
