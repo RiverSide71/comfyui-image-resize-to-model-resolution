@@ -1,25 +1,25 @@
-- math
-- numpy as np
-- torch
-from PIL - Image as PILImage
-from torchvision.transforms - InterpolationMode
-from torchvision.transforms - functional as F
+import math
+import numpy as np
+import torch
+from PIL import Image as PILImage
+from torchvision.transforms import InterpolationMode
+from torchvision.transforms import functional as F
 
 # ---------------------------------------------------------------------------
-# Resolution tables — all entries are (width, height)
+# Resolution tables - all entries are (width, height)
 # ---------------------------------------------------------------------------
 
 QWEN_IMAGE_RESOLUTIONS = (
     # Vertical
     (928,  1664),  # 9:16
     (1056, 1584),  # 2:3
-    (1104, 1472),  # 3:4
+    (1104, 1472),  # 3:4  
     # Square
     (1328, 1328),  # 1:1
     # Horizontal
     (1664,  928),  # 16:9
     (1584, 1056),  # 3:2
-    (1472, 1104),  # 4:3
+    (1472, 1104),  # 4:3  
 )
 
 ERNIE_IMAGE_RESOLUTIONS = (
@@ -225,7 +225,7 @@ ANIMA_RESOLUTIONS = (
 )
 
 LENS_RESOLUTIONS = (
-    # Vertical (Portrait) — 1:2 to ~9:16
+    # Vertical (Portrait) - 1:2 to ~9:16
     (720,  1440),  # 1:2
     (768,  1440),  # 8:15
     (768,  1280),  # 3:5
@@ -246,7 +246,7 @@ LENS_RESOLUTIONS = (
     (1024, 1024),  # 1:1
     (1280, 1280),  # 1:1
     (1440, 1440),  # 1:1
-    # Horizontal (Landscape) — ~16:9 to 2:1
+    # Horizontal (Landscape) - ~16:9 to 2:1
     (1440,  720),  # 2:1
     (1440,  768),  # 15:8
     (1344,  768),  # ~7:4
@@ -305,32 +305,34 @@ class ImageRes2ModelRes:
         "Microsoft_Lens": LENS_RESOLUTIONS,
     }
 
-    INPUT_TYPES = lambda: {
-        "required": {
-            "image": ("IMAGE",),
-            "model": (
-                ["Qwen_Image", "Z_Image_Turbo", "Ernie_Image_Turbo", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Microsoft_Lens"],
-            ),
-            "interpolation_mode": (
-                ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
-            ),
-            "resize_longest_side": (
-                "INT",
-                {
-                    "default": 0,
-                    "min": 0,
-                    "max": 8192,
-                    "step": 8,
-                    "tooltip": (
-                        "0 = use the model's native resolution exactly.\n"
-                        "Any other value: the best-matching resolution is "
-                        "scaled proportionally so its longest side equals "
-                        "this number (rounded to the nearest 8 px)."
-                    ),
-                },
-            ),
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE",),
+                "model": (
+                    ["Qwen_Image", "Z_Image_Turbo", "Ernie_Image_Turbo", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Microsoft_Lens"],
+                ),
+                "interpolation_mode": (
+                    ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
+                ),
+                "resize_longest_side": (
+                    "INT",
+                    {
+                        "default": 0,
+                        "min": 0,
+                        "max": 8192,
+                        "step": 8,
+                        "tooltip": (
+                            "0 = use the model's native resolution exactly.\n"
+                            "Any other value: the best-matching resolution is "
+                            "scaled proportionally so its longest side equals "
+                            "this number (rounded to the nearest 8 px)."
+                        ),
+                    },
+                ),
+            }
         }
-    }
 
     RETURN_TYPES = ("IMAGE", "INT", "INT")
     RETURN_NAMES = ("IMAGE", "WIDTH", "HEIGHT")
@@ -342,7 +344,7 @@ class ImageRes2ModelRes:
 
     @staticmethod
     def _aspect_angle(w: int, h: int) -> float:
-        """Return the arctangent of h/w — used as a compact aspect-ratio proxy."""
+        """Return the arctangent of h/w - used as a compact aspect-ratio proxy."""
         return math.atan2(h, w)
 
     @classmethod
@@ -356,8 +358,8 @@ class ImageRes2ModelRes:
         Return the (w, h) entry from *resolutions* that best matches the image.
 
         Scores by a weighted combination of:
-          - aspect-ratio proximity  (primary — avoids orientation flips)
-          - pixel-area proximity    (secondary — avoids huge over/under sizing)
+          - aspect-ratio proximity  (primary - avoids orientation flips)
+          - pixel-area proximity    (secondary - avoids huge over/under sizing)
         """
         img_angle = cls._aspect_angle(img_w, img_h)
         img_area  = img_w * img_h
@@ -404,7 +406,7 @@ class ImageRes2ModelRes:
         if resize_longest_side > 0:
             candidates = tuple(r for r in resolutions if max(r) <= resize_longest_side)
             if not candidates:
-                # All listed resolutions exceed the limit — use the one with
+                # All listed resolutions exceed the limit - use the one with
                 # the smallest longest side so we at least get closest.
                 candidates = (min(resolutions, key=lambda r: max(r)),)
             resolutions = candidates
@@ -412,7 +414,7 @@ class ImageRes2ModelRes:
         target_w, target_h = self._closest_resolution(img_w, img_h, resolutions)
 
         # Resize to the exact listed model resolution.
-        # Aspect ratio may shift slightly — this is intentional; the node
+        # Aspect ratio may shift slightly - this is intentional; the node
         # guarantees the output dimensions are a valid listed resolution.
         #
         # Lanczos is not supported by torchvision for tensor inputs, so we
