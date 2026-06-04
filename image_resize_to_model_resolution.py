@@ -1,10 +1,9 @@
-import math
-
-import numpy as np
-import torch
-from PIL import Image as PILImage
-from torchvision.transforms import InterpolationMode
-from torchvision.transforms import functional as F
+- math
+- numpy as np
+- torch
+from PIL - Image as PILImage
+from torchvision.transforms - InterpolationMode
+from torchvision.transforms - functional as F
 
 # ---------------------------------------------------------------------------
 # Resolution tables — all entries are (width, height)
@@ -14,13 +13,13 @@ QWEN_IMAGE_RESOLUTIONS = (
     # Vertical
     (928,  1664),  # 9:16
     (1056, 1584),  # 2:3
-    (1140, 1472),  # 3:4
+    (1104, 1472),  # 3:4
     # Square
     (1328, 1328),  # 1:1
     # Horizontal
     (1664,  928),  # 16:9
     (1584, 1056),  # 3:2
-    (1472, 1140),  # 4:3
+    (1472, 1104),  # 4:3
 )
 
 ERNIE_IMAGE_RESOLUTIONS = (
@@ -352,39 +351,27 @@ class ImageRes2ModelRes:
         img_w: int,
         img_h: int,
         resolutions: tuple[tuple[int, int], ...],
-        target_longest_side: int = 0,
     ) -> tuple[int, int]:
         """
         Return the (w, h) entry from *resolutions* that best matches the image.
 
-        Always scores by a weighted combination of:
+        Scores by a weighted combination of:
           - aspect-ratio proximity  (primary — avoids orientation flips)
           - pixel-area proximity    (secondary — avoids huge over/under sizing)
-
-        When target_longest_side > 0 the area term is replaced by a
-        longest-side proximity term so the result steers toward the requested
-        size instead of the image's native size.
         """
         img_angle = cls._aspect_angle(img_w, img_h)
         img_area  = img_w * img_h
 
         # Normalisation constants
-        max_angle  = math.pi / 2
-        max_area   = max(r[0] * r[1] for r in resolutions)
-        max_pixels = max(max(r)      for r in resolutions)
+        max_angle = math.pi / 2
+        max_area  = max(r[0] * r[1] for r in resolutions)
 
-        if target_longest_side <= 0:
-            def score(res: tuple[int, int]) -> float:
-                angle_err = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
-                area_err  = abs(res[0] * res[1] - img_area) / max_area
-                # Aspect ratio weighted 2× so orientation is never flipped,
-                # but area proximity breaks ties between same-ratio candidates.
-                return 2.0 * angle_err + area_err
-        else:
-            def score(res: tuple[int, int]) -> float:
-                angle_err = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
-                size_err  = abs(max(res) - target_longest_side) / max_pixels
-                return 2.0 * angle_err + size_err
+        def score(res: tuple[int, int]) -> float:
+            angle_err = abs(cls._aspect_angle(res[0], res[1]) - img_angle) / max_angle
+            area_err  = abs(res[0] * res[1] - img_area) / max_area
+            # Aspect ratio weighted 2× so orientation is never flipped,
+            # but area proximity breaks ties between same-ratio candidates.
+            return 2.0 * angle_err + area_err
 
         return min(resolutions, key=score)
 
@@ -406,20 +393,27 @@ class ImageRes2ModelRes:
         # image tensor shape: (B, H, W, C)
         _, img_h, img_w, _ = image.shape
 
-        # Pick the best-matching resolution for the chosen model.
-        # When resize_longest_side > 0 it influences which exact model
-        # resolution is selected, but the output is always an entry from
-        # the model's own list — never an arbitrary scaled dimension.
+        # When resize_longest_side > 0, restrict candidates to those whose
+        # longest side is <= the requested value, then pick the best aspect
+        # match among them.  This guarantees the output is always a listed
+        # model resolution (never an arbitrarily scaled size).
+        # If no resolution fits within the limit, fall back to the smallest
+        # available resolution (by longest side) to avoid returning nothing.
         model_key = model.replace(" ", "_")
-        target_w, target_h = self._closest_resolution(
-            img_w, img_h,
-            self.MODEL_RESOLUTIONS[model_key],
-            target_longest_side=resize_longest_side,
-        )
+        resolutions = self.MODEL_RESOLUTIONS[model_key]
+        if resize_longest_side > 0:
+            candidates = tuple(r for r in resolutions if max(r) <= resize_longest_side)
+            if not candidates:
+                # All listed resolutions exceed the limit — use the one with
+                # the smallest longest side so we at least get closest.
+                candidates = (min(resolutions, key=lambda r: max(r)),)
+            resolutions = candidates
 
-        # Resize to the exact model resolution.
+        target_w, target_h = self._closest_resolution(img_w, img_h, resolutions)
+
+        # Resize to the exact listed model resolution.
         # Aspect ratio may shift slightly — this is intentional; the node
-        # guarantees the output dimensions are valid for the chosen model.
+        # guarantees the output dimensions are a valid listed resolution.
         #
         # Lanczos is not supported by torchvision for tensor inputs, so we
         # route it through PIL instead.
