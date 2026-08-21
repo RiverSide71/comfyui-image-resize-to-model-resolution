@@ -1,4 +1,4 @@
-# comfyui-image-resize-to-model-resolution
+# image-resize-to-model-resolution
 A custom node which resizes an imput image to a resolution on which the selected model was trained. 
 
 # Image Resize to Nearest Model Resolution

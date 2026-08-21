@@ -22,17 +22,18 @@ QWEN_IMAGE_RESOLUTIONS = (
     (1472, 1104),  # 4:3  
 )
 
-ERNIE_IMAGE_RESOLUTIONS = (
-    #Square
-    (1024,  1024), #1:1
+# MiniMax H3 open-weights base model, run locally in ComfyUI - not the hosted 2K regeneration
+
+MINIMAX_H3_RESOLUTIONS = (
     # Vertical
-    (848,  1264), #~1.5
-    (768,  1376), #~5:9
-    (896,  1200), #3:4
-    #Horizontal
-    (1264,  848), #~5.1
-    (1376,  768), #~9:5
-    (1200,  896), #4:3
+    (768,  1344),  # 9:16
+    (768,  1024),  # 3:4
+    # Square
+    (768,   768),  # 1:1
+    # Horizontal
+    (1024,  768),  # 4:3
+    (1344,  768),  # 16:9
+    (1344,  576),  # 21:9 (ultrawide, long edge capped at 1344)
 )
 
 Z_IMAGE_RESOLUTIONS = (
@@ -224,42 +225,23 @@ ANIMA_RESOLUTIONS = (
     (1024,  960),  # 16:15
 )
 
-LENS_RESOLUTIONS = (
-    # Vertical (Portrait) - 1:2 to ~9:16
-    (720,  1440),  # 1:2
-    (768,  1440),  # 8:15
-    (768,  1280),  # 3:5
-    (768,  1344),  # 4:7
-    (832,  1152),  # 13:18
-    (832,  1216),  # ~13:19
-    (896,  1152),  # 7:9
-    (896,  1088),  # ~14:17
-    (960,  1088),  # ~15:17
-    (960,  1024),  # 15:16
-    (960,  1280),  # 3:4
-    (1024, 1280),  # 4:5
-    (1024, 1440),  # ~5:7
-    (1080, 1440),  # 3:4
+# Krea 2 Edit LoRA 
+KREA2_EDIT_RESOLUTIONS = (
+    # Vertical - 1K tier
+    (864,  1152),  # 3:4
+    (832,  1248),  # 2:3
+    (720,  1280),  # 9:16
+    # Vertical - 2K tier (single-subject only)
+    (1080, 1920),  # 9:16
     # Square
-    (512,   512),  # 1:1
-    (768,   768),  # 1:1
-    (1024, 1024),  # 1:1
-    (1280, 1280),  # 1:1
-    (1440, 1440),  # 1:1
-    # Horizontal (Landscape) - ~16:9 to 2:1
-    (1440,  720),  # 2:1
-    (1440,  768),  # 15:8
-    (1344,  768),  # ~7:4
-    (1280,  768),  # 5:3
-    (1216,  832),  # ~3:2
-    (1152,  832),  # ~7:5
-    (1152,  896),  # 9:7
-    (1088,  896),  # ~17:14
-    (1088,  960),  # ~17:15
-    (1024,  960),  # 16:15
-    (1280,  960),  # 4:3
-    (1440, 1080),  # 4:3
-    (1440, 1024),  # ~7:5
+    (1024, 1024),  # 1:1 - 1K tier
+    (1440, 1440),  # 1:1 - 2K tier (single-subject only)
+    # Horizontal - 1K tier
+    (1152,  864),  # 4:3
+    (1248,  832),  # 3:2
+    (1280,  720),  # 16:9
+    # Horizontal - 2K tier (single-subject only)
+    (1920, 1080),  # 16:9
 )
 
 LTXV_RESOLUTIONS = (
@@ -295,14 +277,14 @@ class ImageRes2ModelRes:
     MODEL_RESOLUTIONS: dict[str, tuple[tuple[int, int], ...]] = {
         "Qwen_Image":    QWEN_IMAGE_RESOLUTIONS,
         "Z_Image_Turbo": Z_IMAGE_RESOLUTIONS,
-        "Ernie_Image_Turbo": ERNIE_IMAGE_RESOLUTIONS,
+        "MiniMax_H3":    MINIMAX_H3_RESOLUTIONS,
         "SDXL":          SDXL_RESOLUTIONS,
         "Flux":          FLUX_RESOLUTIONS,
         "Flux2":         FLUX2_RESOLUTIONS,
         "Wan_2_2":       WAN_2_2_RESOLUTIONS,
         "LTXV":          LTXV_RESOLUTIONS,
         "Anima":         ANIMA_RESOLUTIONS,
-        "Microsoft_Lens": LENS_RESOLUTIONS,
+        "Krea2_Edit":    KREA2_EDIT_RESOLUTIONS,
     }
 
     @classmethod
@@ -311,7 +293,7 @@ class ImageRes2ModelRes:
             "required": {
                 "image": ("IMAGE",),
                 "model": (
-                    ["Qwen_Image", "Z_Image_Turbo", "Ernie_Image_Turbo", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Microsoft_Lens"],
+                    ["Qwen_Image", "Z_Image_Turbo", "MiniMax_H3", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Krea2_Edit"],
                 ),
                 "interpolation_mode": (
                     ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
