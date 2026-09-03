@@ -1,4 +1,4 @@
-# A ComfyUI node for resizing an imput image to the nearest resolution supported by a selected model. 
+# A ComfyUI node for resizing an imput image to the nearest resolution supported by model. 
 # --------------------------------------------------------------------------------
 # Node Registration
 # --------------------------------------------------------------------------------

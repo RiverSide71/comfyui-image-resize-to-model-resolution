@@ -1,5 +1,5 @@
 # image-resize-to-model-resolution
-A custom node which resizes an imput image to a resolution on which the selected model was trained. 
+A custom node which resizes an imput image to a resolution that is nearest to one on which the selected model was trained. 
 
 # Image Resize to Nearest Model Resolution
 

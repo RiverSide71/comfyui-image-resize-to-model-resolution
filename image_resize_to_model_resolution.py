@@ -26,14 +26,111 @@ QWEN_IMAGE_RESOLUTIONS = (
 
 MINIMAX_H3_RESOLUTIONS = (
     # Vertical
-    (768,  1344),  # 9:16
-    (768,  1024),  # 3:4
+    # 9:16  (0.2MP-2.0MP, /32, ceil)
+    (  352,   608),  # 9:16  0.2MP target, 0.214MP actual
+    (  416,   736),  # 9:16  0.3MP target, 0.306MP actual
+    (  480,   864),  # 9:16  0.4MP target, 0.415MP actual
+    (  544,   960),  # 9:16  0.5MP target, 0.522MP actual
+    (  608,  1056),  # 9:16  0.6MP target, 0.642MP actual
+    (  640,  1120),  # 9:16  0.7MP target, 0.717MP actual
+    (  672,  1216),  # 9:16  0.8MP target, 0.817MP actual
+    (  736,  1280),  # 9:16  0.9MP target, 0.942MP actual
+    (  768,  1344),  # 9:16  0.98MP target, 1.032MP actual
+    (  832,  1472),  # 9:16  1.2MP target, 1.225MP actual
+    (  928,  1664),  # 9:16  1.5MP target, 1.544MP actual
+    ( 1024,  1792),  # 9:16  1.8MP target, 1.835MP actual
+    ( 1088,  1888),  # 9:16  2.0MP target, 2.054MP actual
+    # 3:4  (0.2MP-2.0MP, /32, ceil)
+    (  416,   544),  # 3:4  0.2MP target, 0.226MP actual
+    (  480,   640),  # 3:4  0.3MP target, 0.307MP actual
+    (  576,   736),  # 3:4  0.4MP target, 0.424MP actual
+    (  640,   832),  # 3:4  0.5MP target, 0.532MP actual
+    (  672,   896),  # 3:4  0.6MP target, 0.602MP actual
+    (  736,   992),  # 3:4  0.7MP target, 0.730MP actual
+    (  800,  1056),  # 3:4  0.8MP target, 0.845MP actual
+    (  832,  1120),  # 3:4  0.9MP target, 0.932MP actual
+    (  864,  1152),  # 3:4  0.98MP target, 0.995MP actual
+    (  896,  1184),  # 3:4  1.0MP target, 1.061MP actual
+    (  960,  1280),  # 3:4  1.2MP target, 1.229MP actual
+    ( 1088,  1440),  # 3:4  1.5MP target, 1.567MP actual
+    ( 1184,  1568),  # 3:4  1.8MP target, 1.857MP actual
+    ( 1248,  1664),  # 3:4  2.0MP target, 2.077MP actual
+    # 2:3  (0.2MP-2.0MP, /32, ceil)
+    (  384,   576),  # 2:3  0.2MP target, 0.221MP actual
+    (  448,   672),  # 2:3  0.3MP target, 0.301MP actual
+    (  544,   800),  # 2:3  0.4MP target, 0.435MP actual
+    (  608,   896),  # 2:3  0.5MP target, 0.545MP actual
+    (  640,   960),  # 2:3  0.6MP target, 0.614MP actual
+    (  704,  1056),  # 2:3  0.7MP target, 0.743MP actual
+    (  736,  1120),  # 2:3  0.8MP target, 0.824MP actual
+    (  800,  1184),  # 2:3  0.9MP target, 0.947MP actual
+    (  832,  1216),  # 2:3  0.98MP target, 1.012MP actual
+    (  832,  1248),  # 2:3  1.0MP target, 1.038MP actual
+    (  896,  1344),  # 2:3  1.2MP target, 1.204MP actual
+    ( 1024,  1504),  # 2:3  1.5MP target, 1.540MP actual
+    ( 1120,  1664),  # 2:3  1.8MP target, 1.864MP actual
+    ( 1184,  1760),  # 2:3  2.0MP target, 2.084MP actual
     # Square
-    (768,   768),  # 1:1
+    # 1:1  (0.2MP-2.0MP, /32, ceil)
+    (  448,   448),  # 1:1  0.2MP target, 0.201MP actual
+    (  576,   576),  # 1:1  0.3MP target, 0.332MP actual
+    (  640,   640),  # 1:1  0.4MP target, 0.410MP actual
+    (  736,   736),  # 1:1  0.5MP target, 0.542MP actual
+    (  800,   800),  # 1:1  0.6MP target, 0.640MP actual
+    (  864,   864),  # 1:1  0.7MP target, 0.746MP actual
+    (  896,   896),  # 1:1  0.8MP target, 0.803MP actual
+    (  960,   960),  # 1:1  0.9MP target, 0.922MP actual
+    (  992,   992),  # 1:1  0.98MP target, 0.984MP actual
+    ( 1024,  1024),  # 1:1  1.0MP target, 1.049MP actual
+    ( 1120,  1120),  # 1:1  1.2MP target, 1.254MP actual
+    ( 1248,  1248),  # 1:1  1.5MP target, 1.558MP actual
+    ( 1344,  1344),  # 1:1  1.8MP target, 1.806MP actual
+    ( 1440,  1440),  # 1:1  2.0MP target, 2.074MP actual
     # Horizontal
-    (1024,  768),  # 4:3
-    (1344,  768),  # 16:9
-    (1344,  576),  # 21:9 (ultrawide, long edge capped at 1344)
+    # 4:3  (0.2MP-2.0MP, /32, ceil)
+    (  544,   416),  # 4:3  0.2MP target, 0.226MP actual
+    (  640,   480),  # 4:3  0.3MP target, 0.307MP actual
+    (  736,   576),  # 4:3  0.4MP target, 0.424MP actual
+    (  832,   640),  # 4:3  0.5MP target, 0.532MP actual
+    (  896,   672),  # 4:3  0.6MP target, 0.602MP actual
+    (  992,   736),  # 4:3  0.7MP target, 0.730MP actual
+    ( 1056,   800),  # 4:3  0.8MP target, 0.845MP actual
+    ( 1120,   832),  # 4:3  0.9MP target, 0.932MP actual
+    ( 1152,   864),  # 4:3  0.98MP target, 0.995MP actual
+    ( 1184,   896),  # 4:3  1.0MP target, 1.061MP actual
+    ( 1280,   960),  # 4:3  1.2MP target, 1.229MP actual
+    ( 1440,  1088),  # 4:3  1.5MP target, 1.567MP actual
+    ( 1568,  1184),  # 4:3  1.8MP target, 1.857MP actual
+    ( 1664,  1248),  # 4:3  2.0MP target, 2.077MP actual
+    # 3:2  (0.2MP-2.0MP, /32, ceil)
+    (  576,   384),  # 3:2  0.2MP target, 0.221MP actual
+    (  672,   448),  # 3:2  0.3MP target, 0.301MP actual
+    (  800,   544),  # 3:2  0.4MP target, 0.435MP actual
+    (  896,   608),  # 3:2  0.5MP target, 0.545MP actual
+    (  960,   640),  # 3:2  0.6MP target, 0.614MP actual
+    ( 1056,   704),  # 3:2  0.7MP target, 0.743MP actual
+    ( 1120,   736),  # 3:2  0.8MP target, 0.824MP actual
+    ( 1184,   800),  # 3:2  0.9MP target, 0.947MP actual
+    ( 1216,   832),  # 3:2  0.98MP target, 1.012MP actual
+    ( 1248,   832),  # 3:2  1.0MP target, 1.038MP actual
+    ( 1344,   896),  # 3:2  1.2MP target, 1.204MP actual
+    ( 1504,  1024),  # 3:2  1.5MP target, 1.540MP actual
+    ( 1664,  1120),  # 3:2  1.8MP target, 1.864MP actual
+    ( 1760,  1184),  # 3:2  2.0MP target, 2.084MP actual
+    # 16:9  (0.2MP-2.0MP, /32, ceil)
+    (  608,   352),  # 16:9  0.2MP target, 0.214MP actual
+    (  736,   416),  # 16:9  0.3MP target, 0.306MP actual
+    (  864,   480),  # 16:9  0.4MP target, 0.415MP actual
+    (  960,   544),  # 16:9  0.5MP target, 0.522MP actual
+    ( 1056,   608),  # 16:9  0.6MP target, 0.642MP actual
+    ( 1120,   640),  # 16:9  0.7MP target, 0.717MP actual
+    ( 1216,   672),  # 16:9  0.8MP target, 0.817MP actual
+    ( 1280,   736),  # 16:9  0.9MP target, 0.942MP actual
+    ( 1344,   768),  # 16:9  0.98MP target, 1.032MP actual
+    ( 1472,   832),  # 16:9  1.2MP target, 1.225MP actual
+    ( 1664,   928),  # 16:9  1.5MP target, 1.544MP actual
+    ( 1792,  1024),  # 16:9  1.8MP target, 1.835MP actual
+    ( 1888,  1088),  # 16:9  2.0MP target, 2.054MP actual
 )
 
 Z_IMAGE_RESOLUTIONS = (
