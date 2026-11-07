@@ -3,7 +3,7 @@
 # Node Registration
 # --------------------------------------------------------------------------------
 
-from .image_resize_to_model_resolution import ImageRes2ModelRes
+from .resize_to_model_resolution import ImageRes2ModelRes
 
 NODE_CLASS_MAPPINGS = {
     "Resize to Model Resolution": ImageRes2ModelRes,

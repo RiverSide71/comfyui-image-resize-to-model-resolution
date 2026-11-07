@@ -1,5 +1,5 @@
 [project]
-name = "resize-to-model-resolution"
+name = "image-resize-to-model-resolution"
 description = "A custom node to resize your image to the nearest model-specific resolution"
 version = "1.0.9"
 license = { file = "LICENSE" } 
