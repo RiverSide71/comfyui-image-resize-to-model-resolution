@@ -1,11 +1,11 @@
-# image-resize-to-model-resolution
+# resize-to-model-resolution
 A custom node which resizes an imput image to a resolution that is nearest to one on which the selected model was trained. 
 
-# Image Resize to Nearest Model Resolution
+# Resize to Model Resolution
 
 Most img2img workflows resize the input image before using it as a latent. It is highly recommended for optimal quality and performance to resize the input image to a resolution on which the model was trained.
 
-The Image Resize to Nearest Model Resolution custom node takes as input a single image and allows you to choose an interpolation method for resizing, and a target model. The node resizes the input image to the nearest resolution on which your selected model was trained.
+The Resize to Model Resolution custom node takes as input a single image and allows you to choose an interpolation method for resizing, and a target model. The node resizes the input image to the nearest resolution on which your selected model was trained.
 
 ## Preview
 
@@ -19,7 +19,7 @@ The Image Resize to Nearest Model Resolution custom node takes as input a single
 
 ### ComfyUI Manager
 
-Open Manager and search for comfyui-image-resize-to-model-resolution by publisher river-side
+Open Manager and search for resize-to-model-resolution by publisher river-side
 
 ### Manual
 

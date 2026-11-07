@@ -22,6 +22,406 @@ QWEN_IMAGE_RESOLUTIONS = (
     (1472, 1104),  # 4:3  
 )
 
+# Qwen Image 2.1 - every 32 px step, longest side 1024-2752
+# (~ = nearest /32 approximation of the labelled ratio)
+QWEN_IMAGE_2_1_RESOLUTIONS = (
+    # Vertical
+    # 9:16  (longest side 1024-2752, /32)
+    ( 576, 1024),  # 9:16
+    ( 608, 1056),  # ~9:16
+    ( 608, 1088),  # ~9:16
+    ( 640, 1120),  # ~9:16
+    ( 640, 1152),  # ~9:16
+    ( 672, 1184),  # ~9:16
+    ( 672, 1216),  # ~9:16
+    ( 704, 1248),  # ~9:16
+    ( 736, 1280),  # ~9:16
+    ( 736, 1312),  # ~9:16
+    ( 768, 1344),  # ~9:16
+    ( 768, 1376),  # ~9:16
+    ( 800, 1408),  # ~9:16
+    ( 800, 1440),  # ~9:16
+    ( 832, 1472),  # ~9:16
+    ( 832, 1504),  # ~9:16
+    ( 864, 1536),  # 9:16
+    ( 896, 1568),  # ~9:16
+    ( 896, 1600),  # ~9:16
+    ( 928, 1632),  # ~9:16
+    ( 928, 1664),  # ~9:16
+    ( 960, 1696),  # ~9:16
+    ( 960, 1728),  # ~9:16
+    ( 992, 1760),  # ~9:16
+    (1024, 1792),  # ~9:16
+    (1024, 1824),  # ~9:16
+    (1056, 1856),  # ~9:16
+    (1056, 1888),  # ~9:16
+    (1088, 1920),  # ~9:16
+    (1088, 1952),  # ~9:16
+    (1120, 1984),  # ~9:16
+    (1120, 2016),  # ~9:16
+    (1152, 2048),  # 9:16
+    (1184, 2080),  # ~9:16
+    (1184, 2112),  # ~9:16
+    (1216, 2144),  # ~9:16
+    (1216, 2176),  # ~9:16
+    (1248, 2208),  # ~9:16
+    (1248, 2240),  # ~9:16
+    (1280, 2272),  # ~9:16
+    (1312, 2304),  # ~9:16
+    (1312, 2336),  # ~9:16
+    (1344, 2368),  # ~9:16
+    (1344, 2400),  # ~9:16
+    (1376, 2432),  # ~9:16
+    (1376, 2464),  # ~9:16
+    (1408, 2496),  # ~9:16
+    (1408, 2528),  # ~9:16
+    (1440, 2560),  # 9:16
+    (1472, 2592),  # ~9:16
+    (1472, 2624),  # ~9:16
+    (1504, 2656),  # ~9:16
+    (1504, 2688),  # ~9:16
+    (1536, 2720),  # ~9:16
+    (1536, 2752),  # ~9:16
+    # 3:4  (longest side 1024-2752, /32)
+    ( 768, 1024),  # 3:4
+    ( 800, 1056),  # ~3:4
+    ( 832, 1088),  # ~3:4
+    ( 832, 1120),  # ~3:4
+    ( 864, 1152),  # 3:4
+    ( 896, 1184),  # ~3:4
+    ( 928, 1216),  # ~3:4
+    ( 928, 1248),  # ~3:4
+    ( 960, 1280),  # 3:4
+    ( 992, 1312),  # ~3:4
+    (1024, 1344),  # ~3:4
+    (1024, 1376),  # ~3:4
+    (1056, 1408),  # 3:4
+    (1088, 1440),  # ~3:4
+    (1120, 1472),  # ~3:4
+    (1120, 1504),  # ~3:4
+    (1152, 1536),  # 3:4
+    (1184, 1568),  # ~3:4
+    (1216, 1600),  # ~3:4
+    (1216, 1632),  # ~3:4
+    (1248, 1664),  # 3:4
+    (1280, 1696),  # ~3:4
+    (1312, 1728),  # ~3:4
+    (1312, 1760),  # ~3:4
+    (1344, 1792),  # 3:4
+    (1376, 1824),  # ~3:4
+    (1408, 1856),  # ~3:4
+    (1408, 1888),  # ~3:4
+    (1440, 1920),  # 3:4
+    (1472, 1952),  # ~3:4
+    (1504, 1984),  # ~3:4
+    (1504, 2016),  # ~3:4
+    (1536, 2048),  # 3:4
+    (1568, 2080),  # ~3:4
+    (1600, 2112),  # ~3:4
+    (1600, 2144),  # ~3:4
+    (1632, 2176),  # 3:4
+    (1664, 2208),  # ~3:4
+    (1696, 2240),  # ~3:4
+    (1696, 2272),  # ~3:4
+    (1728, 2304),  # 3:4
+    (1760, 2336),  # ~3:4
+    (1792, 2368),  # ~3:4
+    (1792, 2400),  # ~3:4
+    (1824, 2432),  # 3:4
+    (1856, 2464),  # ~3:4
+    (1888, 2496),  # ~3:4
+    (1888, 2528),  # ~3:4
+    (1920, 2560),  # 3:4
+    (1952, 2592),  # ~3:4
+    (1984, 2624),  # ~3:4
+    (1984, 2656),  # ~3:4
+    (2016, 2688),  # 3:4
+    (2048, 2720),  # ~3:4
+    (2080, 2752),  # ~3:4
+    # 2:3  (longest side 1024-2752, /32)
+    ( 672, 1024),  # ~2:3
+    ( 704, 1056),  # 2:3
+    ( 736, 1088),  # ~2:3
+    ( 736, 1120),  # ~2:3
+    ( 768, 1152),  # 2:3
+    ( 800, 1184),  # ~2:3
+    ( 800, 1216),  # ~2:3
+    ( 832, 1248),  # 2:3
+    ( 864, 1280),  # ~2:3
+    ( 864, 1312),  # ~2:3
+    ( 896, 1344),  # 2:3
+    ( 928, 1376),  # ~2:3
+    ( 928, 1408),  # ~2:3
+    ( 960, 1440),  # 2:3
+    ( 992, 1472),  # ~2:3
+    ( 992, 1504),  # ~2:3
+    (1024, 1536),  # 2:3
+    (1056, 1568),  # ~2:3
+    (1056, 1600),  # ~2:3
+    (1088, 1632),  # 2:3
+    (1120, 1664),  # ~2:3
+    (1120, 1696),  # ~2:3
+    (1152, 1728),  # 2:3
+    (1184, 1760),  # ~2:3
+    (1184, 1792),  # ~2:3
+    (1216, 1824),  # 2:3
+    (1248, 1856),  # ~2:3
+    (1248, 1888),  # ~2:3
+    (1280, 1920),  # 2:3
+    (1312, 1952),  # ~2:3
+    (1312, 1984),  # ~2:3
+    (1344, 2016),  # 2:3
+    (1376, 2048),  # ~2:3
+    (1376, 2080),  # ~2:3
+    (1408, 2112),  # 2:3
+    (1440, 2144),  # ~2:3
+    (1440, 2176),  # ~2:3
+    (1472, 2208),  # 2:3
+    (1504, 2240),  # ~2:3
+    (1504, 2272),  # ~2:3
+    (1536, 2304),  # 2:3
+    (1568, 2336),  # ~2:3
+    (1568, 2368),  # ~2:3
+    (1600, 2400),  # 2:3
+    (1632, 2432),  # ~2:3
+    (1632, 2464),  # ~2:3
+    (1664, 2496),  # 2:3
+    (1696, 2528),  # ~2:3
+    (1696, 2560),  # ~2:3
+    (1728, 2592),  # 2:3
+    (1760, 2624),  # ~2:3
+    (1760, 2656),  # ~2:3
+    (1792, 2688),  # 2:3
+    (1824, 2720),  # ~2:3
+    (1824, 2752),  # ~2:3
+    # Square
+    # 1:1  (side 1024-2752, /32)
+    (1024, 1024),  # 1:1
+    (1056, 1056),  # 1:1
+    (1088, 1088),  # 1:1
+    (1120, 1120),  # 1:1
+    (1152, 1152),  # 1:1
+    (1184, 1184),  # 1:1
+    (1216, 1216),  # 1:1
+    (1248, 1248),  # 1:1
+    (1280, 1280),  # 1:1
+    (1312, 1312),  # 1:1
+    (1344, 1344),  # 1:1
+    (1376, 1376),  # 1:1
+    (1408, 1408),  # 1:1
+    (1440, 1440),  # 1:1
+    (1472, 1472),  # 1:1
+    (1504, 1504),  # 1:1
+    (1536, 1536),  # 1:1
+    (1568, 1568),  # 1:1
+    (1600, 1600),  # 1:1
+    (1632, 1632),  # 1:1
+    (1664, 1664),  # 1:1
+    (1696, 1696),  # 1:1
+    (1728, 1728),  # 1:1
+    (1760, 1760),  # 1:1
+    (1792, 1792),  # 1:1
+    (1824, 1824),  # 1:1
+    (1856, 1856),  # 1:1
+    (1888, 1888),  # 1:1
+    (1920, 1920),  # 1:1
+    (1952, 1952),  # 1:1
+    (1984, 1984),  # 1:1
+    (2016, 2016),  # 1:1
+    (2048, 2048),  # 1:1
+    (2080, 2080),  # 1:1
+    (2112, 2112),  # 1:1
+    (2144, 2144),  # 1:1
+    (2176, 2176),  # 1:1
+    (2208, 2208),  # 1:1
+    (2240, 2240),  # 1:1
+    (2272, 2272),  # 1:1
+    (2304, 2304),  # 1:1
+    (2336, 2336),  # 1:1
+    (2368, 2368),  # 1:1
+    (2400, 2400),  # 1:1
+    (2432, 2432),  # 1:1
+    (2464, 2464),  # 1:1
+    (2496, 2496),  # 1:1
+    (2528, 2528),  # 1:1
+    (2560, 2560),  # 1:1
+    (2592, 2592),  # 1:1
+    (2624, 2624),  # 1:1
+    (2656, 2656),  # 1:1
+    (2688, 2688),  # 1:1
+    (2720, 2720),  # 1:1
+    (2752, 2752),  # 1:1
+    # Horizontal
+    # 16:9  (longest side 1024-2752, /32)
+    (1024,  576),  # 16:9
+    (1056,  608),  # ~16:9
+    (1088,  608),  # ~16:9
+    (1120,  640),  # ~16:9
+    (1152,  640),  # ~16:9
+    (1184,  672),  # ~16:9
+    (1216,  672),  # ~16:9
+    (1248,  704),  # ~16:9
+    (1280,  736),  # ~16:9
+    (1312,  736),  # ~16:9
+    (1344,  768),  # ~16:9
+    (1376,  768),  # ~16:9
+    (1408,  800),  # ~16:9
+    (1440,  800),  # ~16:9
+    (1472,  832),  # ~16:9
+    (1504,  832),  # ~16:9
+    (1536,  864),  # 16:9
+    (1568,  896),  # ~16:9
+    (1600,  896),  # ~16:9
+    (1632,  928),  # ~16:9
+    (1664,  928),  # ~16:9
+    (1696,  960),  # ~16:9
+    (1728,  960),  # ~16:9
+    (1760,  992),  # ~16:9
+    (1792, 1024),  # ~16:9
+    (1824, 1024),  # ~16:9
+    (1856, 1056),  # ~16:9
+    (1888, 1056),  # ~16:9
+    (1920, 1088),  # ~16:9
+    (1952, 1088),  # ~16:9
+    (1984, 1120),  # ~16:9
+    (2016, 1120),  # ~16:9
+    (2048, 1152),  # 16:9
+    (2080, 1184),  # ~16:9
+    (2112, 1184),  # ~16:9
+    (2144, 1216),  # ~16:9
+    (2176, 1216),  # ~16:9
+    (2208, 1248),  # ~16:9
+    (2240, 1248),  # ~16:9
+    (2272, 1280),  # ~16:9
+    (2304, 1312),  # ~16:9
+    (2336, 1312),  # ~16:9
+    (2368, 1344),  # ~16:9
+    (2400, 1344),  # ~16:9
+    (2432, 1376),  # ~16:9
+    (2464, 1376),  # ~16:9
+    (2496, 1408),  # ~16:9
+    (2528, 1408),  # ~16:9
+    (2560, 1440),  # 16:9
+    (2592, 1472),  # ~16:9
+    (2624, 1472),  # ~16:9
+    (2656, 1504),  # ~16:9
+    (2688, 1504),  # ~16:9
+    (2720, 1536),  # ~16:9
+    (2752, 1536),  # ~16:9
+    # 4:3  (longest side 1024-2752, /32)
+    (1024,  768),  # 4:3
+    (1056,  800),  # ~4:3
+    (1088,  832),  # ~4:3
+    (1120,  832),  # ~4:3
+    (1152,  864),  # 4:3
+    (1184,  896),  # ~4:3
+    (1216,  928),  # ~4:3
+    (1248,  928),  # ~4:3
+    (1280,  960),  # 4:3
+    (1312,  992),  # ~4:3
+    (1344, 1024),  # ~4:3
+    (1376, 1024),  # ~4:3
+    (1408, 1056),  # 4:3
+    (1440, 1088),  # ~4:3
+    (1472, 1120),  # ~4:3
+    (1504, 1120),  # ~4:3
+    (1536, 1152),  # 4:3
+    (1568, 1184),  # ~4:3
+    (1600, 1216),  # ~4:3
+    (1632, 1216),  # ~4:3
+    (1664, 1248),  # 4:3
+    (1696, 1280),  # ~4:3
+    (1728, 1312),  # ~4:3
+    (1760, 1312),  # ~4:3
+    (1792, 1344),  # 4:3
+    (1824, 1376),  # ~4:3
+    (1856, 1408),  # ~4:3
+    (1888, 1408),  # ~4:3
+    (1920, 1440),  # 4:3
+    (1952, 1472),  # ~4:3
+    (1984, 1504),  # ~4:3
+    (2016, 1504),  # ~4:3
+    (2048, 1536),  # 4:3
+    (2080, 1568),  # ~4:3
+    (2112, 1600),  # ~4:3
+    (2144, 1600),  # ~4:3
+    (2176, 1632),  # 4:3
+    (2208, 1664),  # ~4:3
+    (2240, 1696),  # ~4:3
+    (2272, 1696),  # ~4:3
+    (2304, 1728),  # 4:3
+    (2336, 1760),  # ~4:3
+    (2368, 1792),  # ~4:3
+    (2400, 1792),  # ~4:3
+    (2432, 1824),  # 4:3
+    (2464, 1856),  # ~4:3
+    (2496, 1888),  # ~4:3
+    (2528, 1888),  # ~4:3
+    (2560, 1920),  # 4:3
+    (2592, 1952),  # ~4:3
+    (2624, 1984),  # ~4:3
+    (2656, 1984),  # ~4:3
+    (2688, 2016),  # 4:3
+    (2720, 2048),  # ~4:3
+    (2752, 2080),  # ~4:3
+    # 3:2  (longest side 1024-2752, /32)
+    (1024,  672),  # ~3:2
+    (1056,  704),  # 3:2
+    (1088,  736),  # ~3:2
+    (1120,  736),  # ~3:2
+    (1152,  768),  # 3:2
+    (1184,  800),  # ~3:2
+    (1216,  800),  # ~3:2
+    (1248,  832),  # 3:2
+    (1280,  864),  # ~3:2
+    (1312,  864),  # ~3:2
+    (1344,  896),  # 3:2
+    (1376,  928),  # ~3:2
+    (1408,  928),  # ~3:2
+    (1440,  960),  # 3:2
+    (1472,  992),  # ~3:2
+    (1504,  992),  # ~3:2
+    (1536, 1024),  # 3:2
+    (1568, 1056),  # ~3:2
+    (1600, 1056),  # ~3:2
+    (1632, 1088),  # 3:2
+    (1664, 1120),  # ~3:2
+    (1696, 1120),  # ~3:2
+    (1728, 1152),  # 3:2
+    (1760, 1184),  # ~3:2
+    (1792, 1184),  # ~3:2
+    (1824, 1216),  # 3:2
+    (1856, 1248),  # ~3:2
+    (1888, 1248),  # ~3:2
+    (1920, 1280),  # 3:2
+    (1952, 1312),  # ~3:2
+    (1984, 1312),  # ~3:2
+    (2016, 1344),  # 3:2
+    (2048, 1376),  # ~3:2
+    (2080, 1376),  # ~3:2
+    (2112, 1408),  # 3:2
+    (2144, 1440),  # ~3:2
+    (2176, 1440),  # ~3:2
+    (2208, 1472),  # 3:2
+    (2240, 1504),  # ~3:2
+    (2272, 1504),  # ~3:2
+    (2304, 1536),  # 3:2
+    (2336, 1568),  # ~3:2
+    (2368, 1568),  # ~3:2
+    (2400, 1600),  # 3:2
+    (2432, 1632),  # ~3:2
+    (2464, 1632),  # ~3:2
+    (2496, 1664),  # 3:2
+    (2528, 1696),  # ~3:2
+    (2560, 1696),  # ~3:2
+    (2592, 1728),  # 3:2
+    (2624, 1760),  # ~3:2
+    (2656, 1760),  # ~3:2
+    (2688, 1792),  # 3:2
+    (2720, 1824),  # ~3:2
+    (2752, 1824),  # ~3:2
+)
+
 # MiniMax H3 open-weights base model, run locally in ComfyUI - not the hosted 2K regeneration
 
 MINIMAX_H3_RESOLUTIONS = (
@@ -373,6 +773,7 @@ class ImageRes2ModelRes:
     
     MODEL_RESOLUTIONS: dict[str, tuple[tuple[int, int], ...]] = {
         "Qwen_Image":    QWEN_IMAGE_RESOLUTIONS,
+        "Qwen_Image_2_1": QWEN_IMAGE_2_1_RESOLUTIONS,
         "Z_Image_Turbo": Z_IMAGE_RESOLUTIONS,
         "MiniMax_H3":    MINIMAX_H3_RESOLUTIONS,
         "SDXL":          SDXL_RESOLUTIONS,
@@ -384,16 +785,54 @@ class ImageRes2ModelRes:
         "Krea2_Edit":    KREA2_EDIT_RESOLUTIONS,
     }
 
+    # Dimensions are snapped to the nearest multiple of this value whenever
+    # the node has to scale (megapixels > 0 or resize_longest_side > 0).
+    # This plays the role of "resolution_steps" in ComfyUI's Scale Image to
+    # Total Pixels node. Listed resolutions that already match the requested
+    # longest side pass through untouched.
+    MODEL_MULTIPLE: dict[str, int] = {
+        "Qwen_Image":     16,
+        "Qwen_Image_2_1": 32,
+        "Z_Image_Turbo":  16,
+        "MiniMax_H3":     32,
+        "SDXL":           64,
+        "Flux":           16,
+        "Flux2":          16,
+        "Wan_2_2":        16,
+        "LTXV":           32,
+        "Anima":          16,
+        "Krea2_Edit":     16,
+    }
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "image": ("IMAGE",),
                 "model": (
-                    ["Qwen_Image", "Z_Image_Turbo", "MiniMax_H3", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Krea2_Edit"],
+                    ["Qwen_Image", "Qwen_Image_2_1", "Z_Image_Turbo", "MiniMax_H3", "SDXL", "Flux", "Flux2", "Wan_2_2", "LTXV", "Anima", "Krea2_Edit"],
                 ),
                 "interpolation_mode": (
                     ["bicubic", "bilinear", "lanczos", "nearest", "nearest exact"],
+                ),
+                "megapixels": (
+                    "FLOAT",
+                    {
+                        "default": 0.0,
+                        "min": 0.0,
+                        "max": 16.0,
+                        "step": 0.01,
+                        "tooltip": (
+                            "0 = off.\n"
+                            "Any other value: the listed resolution with the "
+                            "closest aspect ratio is scaled to this many "
+                            "megapixels (1 MP = 1024 x 1024 px, same as "
+                            "ComfyUI's Scale Image to Total Pixels), with both "
+                            "sides rounded to the nearest multiple the selected "
+                            "model requires. Takes priority over "
+                            "resize_longest_side."
+                        ),
+                    },
                 ),
                 "resize_longest_side": (
                     "INT",
@@ -401,12 +840,16 @@ class ImageRes2ModelRes:
                         "default": 0,
                         "min": 0,
                         "max": 8192,
-                        "step": 8,
+                        "step": 16,
                         "tooltip": (
-                            "0 = use the model's native resolution exactly.\n"
-                            "Any other value: the best-matching resolution is "
-                            "scaled proportionally so its longest side equals "
-                            "this number (rounded to the nearest 8 px)."
+                            "0 = use the model's native resolution exactly "
+                            "(when megapixels is also 0).\n"
+                            "Any other value: the listed resolution with the "
+                            "closest aspect ratio is scaled so its longest side "
+                            "equals this number, with both sides rounded to the "
+                            "nearest multiple the selected model requires "
+                            "(e.g., 16 for Wan 2.2). Ignored when megapixels "
+                            "is above 0."
                         ),
                     },
                 ),
@@ -456,6 +899,84 @@ class ImageRes2ModelRes:
 
         return min(resolutions, key=score)
 
+    @staticmethod
+    def _snap(value: float, multiple: int) -> int:
+        """Round *value* to the nearest multiple (half rounds up), min 1 multiple."""
+        return max(multiple, int(math.floor(value / multiple + 0.5)) * multiple)
+
+    @classmethod
+    def _fit_longest_side(
+        cls,
+        img_w: int,
+        img_h: int,
+        resolutions: tuple[tuple[int, int], ...],
+        longest: int,
+        multiple: int,
+    ) -> tuple[int, int]:
+        """
+        Scale a listed resolution so its longest side is *longest*, snapped to
+        *multiple*.
+
+        Every listed resolution is scaled and snapped first; the winner is the
+        one whose *final* aspect ratio is closest to the image's. Ties (e.g.
+        several 9:16 entries snapping to the same size) go to the entry whose
+        native longest side is nearest the request, so an exact listed
+        resolution is returned whenever one fits.
+        """
+        img_log_ar = math.log(img_w / img_h)
+
+        def fitted(res: tuple[int, int]) -> tuple[int, int]:
+            w, h = res
+            long_side = max(w, h)
+            if long_side == longest:
+                return w, h  # already exactly the requested size
+            scale = longest / long_side
+            if w >= h:
+                return cls._snap(longest, multiple), cls._snap(h * scale, multiple)
+            return cls._snap(w * scale, multiple), cls._snap(longest, multiple)
+
+        def score(res: tuple[int, int]) -> tuple[float, int]:
+            fw, fh = fitted(res)
+            return (abs(math.log(fw / fh) - img_log_ar), abs(max(res) - longest))
+
+        return fitted(min(resolutions, key=score))
+
+    @classmethod
+    def _fit_megapixels(
+        cls,
+        img_w: int,
+        img_h: int,
+        resolutions: tuple[tuple[int, int], ...],
+        megapixels: float,
+        multiple: int,
+    ) -> tuple[int, int]:
+        """
+        Scale a listed resolution to *megapixels*, snapped to *multiple*.
+
+        The maths mirrors ComfyUI's "Scale Image to Total Pixels" node:
+        1 MP = 1024 * 1024 px, scale = sqrt(total / area), and each side is
+        rounded to the step independently. The difference is that the scaled
+        shape is a listed model resolution rather than the raw image, so the
+        result always keeps one of the model's supported aspect ratios.
+
+        Every listed resolution is scaled and snapped first; the winner is the
+        one whose *final* aspect ratio is closest to the image's. Ties go to
+        the entry whose native area is nearest the request.
+        """
+        total = megapixels * 1024 * 1024
+        img_log_ar = math.log(img_w / img_h)
+
+        def fitted(res: tuple[int, int]) -> tuple[int, int]:
+            w, h = res
+            scale_by = math.sqrt(total / (w * h))
+            return cls._snap(w * scale_by, multiple), cls._snap(h * scale_by, multiple)
+
+        def score(res: tuple[int, int]) -> tuple[float, float]:
+            fw, fh = fitted(res)
+            return (abs(math.log(fw / fh) - img_log_ar), abs(res[0] * res[1] - total))
+
+        return fitted(min(resolutions, key=score))
+
     # ------------------------------------------------------------------
     # Main execution
     # ------------------------------------------------------------------
@@ -465,7 +986,8 @@ class ImageRes2ModelRes:
         image: torch.Tensor,
         model: str,
         interpolation_mode: str,
-        resize_longest_side: int,
+        megapixels: float = 0.0,
+        resize_longest_side: int = 0,
     ):
         # Resolve interpolation enum
         interp_key = interpolation_mode.upper().replace(" ", "_")
@@ -474,27 +996,23 @@ class ImageRes2ModelRes:
         # image tensor shape: (B, H, W, C)
         _, img_h, img_w, _ = image.shape
 
-        # When resize_longest_side > 0, restrict candidates to those whose
-        # longest side is <= the requested value, then pick the best aspect
-        # match among them.  This guarantees the output is always a listed
-        # model resolution (never an arbitrarily scaled size).
-        # If no resolution fits within the limit, fall back to the smallest
-        # available resolution (by longest side) to avoid returning nothing.
         model_key = model.replace(" ", "_")
         resolutions = self.MODEL_RESOLUTIONS[model_key]
-        if resize_longest_side > 0:
-            candidates = tuple(r for r in resolutions if max(r) <= resize_longest_side)
-            if not candidates:
-                # All listed resolutions exceed the limit - use the one with
-                # the smallest longest side so we at least get closest.
-                candidates = (min(resolutions, key=lambda r: max(r)),)
-            resolutions = candidates
+        multiple = self.MODEL_MULTIPLE.get(model_key, 8)
 
-        target_w, target_h = self._closest_resolution(img_w, img_h, resolutions)
+        if megapixels > 0:
+            target_w, target_h = self._fit_megapixels(
+                img_w, img_h, resolutions, megapixels, multiple
+            )
+        elif resize_longest_side > 0:
+            target_w, target_h = self._fit_longest_side(
+                img_w, img_h, resolutions, resize_longest_side, multiple
+            )
+        else:
+            target_w, target_h = self._closest_resolution(img_w, img_h, resolutions)
 
-        # Resize to the exact listed model resolution.
-        # Aspect ratio may shift slightly - this is intentional; the node
-        # guarantees the output dimensions are a valid listed resolution.
+        # Resize to the chosen resolution. Aspect ratio may shift slightly -
+        # this is intentional; output is always a model-valid size.
         #
         # Lanczos is not supported by torchvision for tensor inputs, so we
         # route it through PIL instead.
@@ -518,4 +1036,8 @@ class ImageRes2ModelRes:
             )
             image = image.permute(0, 2, 3, 1)
 
-        return (image, target_w, target_h)
+        # "ui" feeds the on-node readout (see web/res_display.js)
+        return {
+            "ui": {"text": [f"{target_w} x {target_h}"]},
+            "result": (image, target_w, target_h),
+        }
